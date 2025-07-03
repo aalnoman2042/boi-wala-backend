@@ -9,11 +9,11 @@ const app: Application = express()
 app.use(express.json())
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("welcome to library managment");
+  res.send("welcome to boi-wala");
 });
 
-app.use('/boi-wala/books', bookRoutes)
-app.use('/boi-wala/borrow', borrowRoutes)
+app.use('/books', bookRoutes)
+app.use('/borrow', borrowRoutes)
 
 // Not Found route 
 app.use((req: Request, res: Response, next: Function) => {
