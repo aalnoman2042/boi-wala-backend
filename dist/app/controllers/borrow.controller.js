@@ -91,7 +91,7 @@ const getBorrowSummery = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.status(200).json({
             success: true,
             message: 'Borrowed books summary retrieved successfully',
-            data: summery
+            summery
         });
     }
     catch (error) {

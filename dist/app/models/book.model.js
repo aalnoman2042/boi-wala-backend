@@ -26,6 +26,12 @@ bookSchema.pre('findOneAndUpdate', function (next) {
     }
     next();
 });
+bookSchema.pre('save', function (next) {
+    if (this.copies === 0) {
+        this.available = false;
+    }
+    next();
+});
 // bookSchema.pre('createCollection', function (next) {
 //   const update = this.getUpdate() as any;
 //   if (update.copies !== undefined) {

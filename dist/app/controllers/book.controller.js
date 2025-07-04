@@ -17,10 +17,13 @@ const console_1 = require("console");
 const createBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const book = yield book_model_1.Book.create(req.body);
+        if (book.copies === 0) {
+            book.available = false;
+        }
         res.status(201).json({
             success: true,
             message: "book created successfully",
-            data: book,
+            book,
         });
     }
     catch (error) {
@@ -49,7 +52,7 @@ const allBooks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(201).json({
             success: true,
             message: "Books retrieved successfully",
-            data: books,
+            books,
         });
     }
     catch (error) {

@@ -14,7 +14,7 @@ export const createBook = async (req: Request, res: Response) => {
     res.status(201).json({
       success: true,
       message: "book created successfully",
-      data: book,
+      book,
     });
   } catch (error) {
     res.status(400).json(
@@ -52,7 +52,7 @@ export const allBooks = async (req: Request, res: Response) => {
     res.status(201).json({
       success: true,
       message: "Books retrieved successfully",
-      data: books,
+       books,
     });
   } catch (error) {
     // next(error)
