@@ -36,7 +36,7 @@ borrowSchema.post('save', function (doc, next) {
         try {
             const borrowedBook = yield book_model_1.Book.findById(doc.book);
             if (borrowedBook) {
-                borrowedBook.copies -= doc.quantity;
+                // borrowedBook.copies -= doc.quantity;
                 if (borrowedBook.copies <= 0) {
                     borrowedBook.available = false;
                 }

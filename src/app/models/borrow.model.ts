@@ -32,7 +32,7 @@ borrowSchema.post('save', async function (doc, next) {
   try {
     const borrowedBook = await Book.findById(doc.book);
     if (borrowedBook) {
-      borrowedBook.copies -= doc.quantity;
+      // borrowedBook.copies -= doc.quantity;
 
       if (borrowedBook.copies <= 0) {
         borrowedBook.available = false;

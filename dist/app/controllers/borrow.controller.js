@@ -18,42 +18,34 @@ const borrowBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const { book, quantity, dueDate } = req.body;
         const foundBook = yield book_model_1.Book.findById(book);
-        // console.log(foundBook);
         if (!foundBook) {
-            res.status(404).json({
+            return res.status(404).json({
                 success: false,
-                message: 'book not found',
+                message: 'Book not found',
                 data: null
             });
         }
-        ;
         if (foundBook.copies < quantity) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
-                message: 'not enough copies avaiable',
+                message: 'Not enough copies available',
                 data: null
             });
         }
-        ;
         foundBook.copies -= quantity;
-        if ((foundBook === null || foundBook === void 0 ? void 0 : foundBook.copies) === 0) {
+        if (foundBook.copies === 0) {
             foundBook.available = false;
         }
-        yield (foundBook === null || foundBook === void 0 ? void 0 : foundBook.save());
+        yield foundBook.save();
         const borrowRecord = yield borrow_model_1.Borrow.create({ book, quantity, dueDate });
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
-            message: 'book borrowed succefully',
+            message: 'Book borrowed successfully',
             data: borrowRecord
         });
     }
     catch (error) {
-        res.status(500).json(
-        //     {
-        // success: false,
-        // message: 'Something went wrong',
-        // error }
-        (0, errorFormate_1.formatErrorResponse)(error));
+        return res.status(500).json((0, errorFormate_1.formatErrorResponse)(error));
     }
 });
 exports.borrowBook = borrowBook;

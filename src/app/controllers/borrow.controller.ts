@@ -14,37 +14,39 @@ export const borrowBook = async (req: Request, res: Response) => {
     if (!foundBook) {
       return res.status(404).json({
         success: false,
-        message: "book not found",
-        data: null,
+        message: 'Book not found',
+        data: null
       });
     }
 
     if (foundBook.copies < quantity) {
       return res.status(400).json({
         success: false,
-        message: "not enough copies available",
-        data: null,
+        message: 'Not enough copies available',
+        data: null
       });
     }
 
-  
     foundBook.copies -= quantity;
+
     if (foundBook.copies === 0) {
       foundBook.available = false;
     }
+
     await foundBook.save();
 
     const borrowRecord = await Borrow.create({ book, quantity, dueDate });
 
     return res.status(201).json({
       success: true,
-      message: "book borrowed successfully",
-      data: borrowRecord,
+      message: 'Book borrowed successfully',
+      data: borrowRecord
     });
   } catch (error) {
     return res.status(500).json(formatErrorResponse(error));
   }
 };
+
 
 
 
